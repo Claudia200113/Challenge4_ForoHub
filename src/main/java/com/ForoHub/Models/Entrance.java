@@ -54,8 +54,8 @@ public class Entrance {
         }
     }
 
-    public void UnpublishEntrance(Entrance entrance) {
-        entrance.published = false;
+    public void UnpublishEntrance() {
+        this.published = false;
     }
 
 

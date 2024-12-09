@@ -21,7 +21,9 @@ public class EntranceController {
 
     @GetMapping
     public List<ListEntranceDTO> listEntrance(){
-        return iEntranceRepository.findAll().stream().map(ListEntranceDTO::new).toList();
+        //return iEntranceRepository.findAll().stream().map(ListEntranceDTO::new).toList();
+        return iEntranceRepository.findByPublishedTrue().stream().map(ListEntranceDTO::new).toList();
+
     }
 
     @PutMapping
@@ -35,7 +37,7 @@ public class EntranceController {
     @Transactional
     public void DeleteEntrance(@PathVariable Long id){
         Entrance entrance = iEntranceRepository.getReferenceById(id);
-        entrance.UnpublishEntrance (entrance);
+        entrance.UnpublishEntrance ();
 
     }
 
