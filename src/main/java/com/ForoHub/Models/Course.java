@@ -30,4 +30,18 @@ public class Course {
         this.category = courseDTO.category();
         return this;
     }
+
+
+
+
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }
