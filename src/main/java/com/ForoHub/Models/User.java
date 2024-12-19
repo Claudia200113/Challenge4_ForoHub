@@ -24,7 +24,6 @@ public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String mail;
     private String password;
@@ -34,6 +33,7 @@ public class User implements UserDetails{
         this.password = authenticationDTO.password();
     }
 
+    public User() {}
 
 
 
@@ -44,9 +44,9 @@ public class User implements UserDetails{
 
 
 
-
-
-
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

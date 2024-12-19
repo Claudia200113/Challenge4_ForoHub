@@ -6,6 +6,7 @@ import com.ForoHub.DTO.ListEntranceDTO;
 import com.ForoHub.DTO.ResponseEntranceDTO;
 import com.ForoHub.Models.Entrance;
 import com.ForoHub.Repositories.IEntranceRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/entrance")
+@SecurityRequirement(name = "bearer-key")
 
 public class EntranceController {
 
