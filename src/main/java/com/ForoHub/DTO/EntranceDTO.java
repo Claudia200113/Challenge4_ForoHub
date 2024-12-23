@@ -1,8 +1,6 @@
 package com.ForoHub.DTO;
 
-import com.ForoHub.Models.Course;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,14 +12,13 @@ public record EntranceDTO(
         @NotBlank
         String message,
         @NotBlank
-        String creationDate,
-        @NotBlank
-        String status,
-        @NotBlank
         String author,
+
+        String replies,
+        @NotBlank
+        Boolean published,
         @NotNull
         @Valid
-        CourseDTO courseDTO,
-        @NotBlank
-        String replies) {
+        CourseDTO courseDTO
+       ) {
 }

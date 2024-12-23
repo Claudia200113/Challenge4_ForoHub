@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Table(name="entrance")
 @Entity(name="Entrance")
 @Getter
@@ -23,20 +25,20 @@ public class Entrance {
     private Long id;
     private String title;
     private String message;
-    private String creationDate;
-    private String status;
+    @Column(name = "creation_date", updatable = false, insertable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime creationDate;
     private String author;
     private String replies;
     private Boolean published;
     @Embedded
     private Course course;
 
+    public Entrance(){}
+
     public Entrance(EntranceDTO entranceDTO) {
         this.published = true;
         this.title = entranceDTO.title();
         this.message = entranceDTO.message();
-        this.creationDate = entranceDTO.creationDate();
-        this.status = entranceDTO.status();
         this.author = entranceDTO.author();
         this.replies = entranceDTO.replies();
         this.course = new Course(entranceDTO.courseDTO());
@@ -66,6 +68,10 @@ public class Entrance {
 
 
 
+    public Boolean getPublished() {
+        return published;
+    }
+
     public Long getId() {
         return id;
     }
@@ -76,14 +82,6 @@ public class Entrance {
 
     public String getMessage() {
         return message;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public String getAuthor() {
@@ -98,8 +96,37 @@ public class Entrance {
         return course;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setReplies(String replies) {
+        this.replies = replies;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
 
 

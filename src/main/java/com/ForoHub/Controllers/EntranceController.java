@@ -1,9 +1,6 @@
 package com.ForoHub.Controllers;
 
-import com.ForoHub.DTO.CourseDTO;
-import com.ForoHub.DTO.DataToUpdateDTO;
-import com.ForoHub.DTO.ListEntranceDTO;
-import com.ForoHub.DTO.ResponseEntranceDTO;
+import com.ForoHub.DTO.*;
 import com.ForoHub.Models.Entrance;
 import com.ForoHub.Repositories.IEntranceRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -26,6 +25,19 @@ public class EntranceController {
 
     @Autowired
     private IEntranceRepository iEntranceRepository;
+
+    @PostMapping
+    public ResponseEntity <ResponseEntranceDTO> registerEntrance(@RequestBody EntranceDTO entranceDTO, UriComponentsBuilder uriComponentsBuilder) {
+        System.out.println("PostMapping registeEntrance starts");
+       Entrance entrance = iEntranceRepository.save(new Entrance(entranceDTO));
+       ResponseEntranceDTO responseEntranceDTO = new ResponseEntranceDTO(entrance.getId(), entrance.getTitle(),
+               entrance.getMessage(),entrance.getCreationDate(),entrance.getPublished(),entrance.getAuthor(),entrance.getReplies(),
+                entrance.getCourse());
+       URI url = uriComponentsBuilder.path("/entrance/{id}").buildAndExpand(entrance.getId()).toUri();
+       return ResponseEntity.created(url).body(responseEntranceDTO);
+    }
+
+
 
     @GetMapping
     public Page<ListEntranceDTO> listEntrance(@PageableDefault(size = 5) Pageable paginacion) {
@@ -39,8 +51,8 @@ public class EntranceController {
         Entrance entrance = iEntranceRepository.getReferenceById(dataToUpdateDTO.id());
         entrance.UpdateData(dataToUpdateDTO);
         ResponseEntranceDTO response = new ResponseEntranceDTO(entrance.getId(), entrance.getTitle(),
-                entrance.getMessage(),entrance.getCreationDate(),entrance.getAuthor(),entrance.getReplies(),
-                entrance.getReplies(), entrance.getCourse());
+                entrance.getMessage(),entrance.getCreationDate(),entrance.getPublished(),entrance.getAuthor(),entrance.getReplies(),
+                entrance.getCourse());
         return ResponseEntity.ok(response);
     }
 

@@ -12,8 +12,43 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
 @Component
+public class SecurityFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private IUserRepository iUserRepository;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        var authHeader = request.getHeader("Authorization");
+        if (authHeader != null) {
+            var token = authHeader.replace("Bearer", "").trim();
+            var subject = tokenService.getSubject(token);
+            if (subject != null) {
+                var user = iUserRepository.findByMail(subject);
+                if (user != null) {
+                    var authentication = new UsernamePasswordAuthenticationToken(
+                            user,
+                            null,
+                            user.getAuthorities()
+                    );
+                    System.out.println(user.getAuthorities());//DEBUG
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
+}
+
+
+
+
+
+/*@Component
 public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -25,14 +60,16 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var authHeader = request.getHeader("Authorization");
         if (authHeader != null){
-            var token = authHeader.replace("Bearer","");
+            var token = authHeader.replace("Bearer","").trim();
             var subject = tokenService.getSubject(token);
             if (subject !=null){
                 var user = iUserRepository.findByMail(subject);
                 var authentication = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                System.out.println("Extracted Token: " + token);
+
             }
         }
         filterChain.doFilter(request,response);
     }
-}
+}*/

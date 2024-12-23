@@ -1,14 +1,14 @@
 package com.ForoHub.DTO;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
 public record CourseDTO(
-       // @NotBlank
-        //String id,
         @NotBlank
-        String name,
+        @Column(name = "courseName")
+        String courseName,
         @NotBlank
-        String category) {
+        String courseCategory) {
 
 
 }
