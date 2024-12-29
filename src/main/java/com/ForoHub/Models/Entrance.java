@@ -51,6 +51,9 @@ public class Entrance {
         if(dataToUpdate.message() != null){
             this.message = dataToUpdate.message();
         }
+        if(dataToUpdate.published()!= null){
+            this.published = dataToUpdate.published();
+        }
         if(dataToUpdate.courseDTO() != null){
             this.course = course.updateData(dataToUpdate.courseDTO());
         }

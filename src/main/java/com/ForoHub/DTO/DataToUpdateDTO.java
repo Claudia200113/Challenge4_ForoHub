@@ -7,5 +7,6 @@ public record DataToUpdateDTO(
         Long id,
         String message,
         String title,
+        Boolean published,
         CourseDTO courseDTO) {
 }
