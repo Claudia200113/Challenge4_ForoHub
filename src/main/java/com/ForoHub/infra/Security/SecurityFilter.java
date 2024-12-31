@@ -35,7 +35,6 @@ public class SecurityFilter extends OncePerRequestFilter {
                             null,
                             user.getAuthorities()
                     );
-                    System.out.println(user.getAuthorities());//DEBUG
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
@@ -43,33 +42,3 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
-
-
-
-
-
-/*@Component
-public class SecurityFilter extends OncePerRequestFilter {
-
-    @Autowired
-    private TokenService tokenService;
-    @Autowired
-    private IUserRepository iUserRepository;
-
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var authHeader = request.getHeader("Authorization");
-        if (authHeader != null){
-            var token = authHeader.replace("Bearer","").trim();
-            var subject = tokenService.getSubject(token);
-            if (subject !=null){
-                var user = iUserRepository.findByMail(subject);
-                var authentication = new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("Extracted Token: " + token);
-
-            }
-        }
-        filterChain.doFilter(request,response);
-    }
-}*/

@@ -103,33 +103,6 @@ public class Entrance {
         return creationDate;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setReplies(String replies) {
-        this.replies = replies;
-    }
-
-    public void setPublished(Boolean published) {
-        this.published = published;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 }
 
 

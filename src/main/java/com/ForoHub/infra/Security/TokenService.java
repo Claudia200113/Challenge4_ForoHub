@@ -58,63 +58,10 @@ public class TokenService {
             if (subject == null) {
                 throw new RuntimeException("Token subject is null");
             }
-            System.out.println("Token Verified Successfully " + subject);
             return subject;
         } catch (JWTVerificationException exception) {
             System.out.println("Verification Error: " + exception.getMessage());
             throw new RuntimeException("Token verification failed", exception);
         }
     }
-
-
-  /*  private Instant generateExpiringHour() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-    }*/
 }
-
-/*@Service
-public class TokenService {
-
-    @Value("${api.security.secret}")
-    private String apiSecret;
-    private JWTVerifier verifier;
-
-    public String generateToken(User user){
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
-            return JWT.create()
-                    .withIssuer("ForoHub")
-                    .withSubject(user.getUsername())
-                    .withClaim("id", user.getId())
-                    .withExpiresAt(generateExpiringHour())
-                    .sign(algorithm);
-        } catch (JWTCreationException exception){
-            throw new RuntimeException();
-        }
-    }
-
-    public String getSubject(String token) {
-        if (token == null){
-            throw new RuntimeException();
-        }
-        DecodedJWT verifier = null;
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
-            verifier = JWT.require(algorithm)
-                    .withIssuer("forohub")
-                    .build()
-                    .verify(token);
-            verifier.getSubject();
-        } catch (JWTVerificationException exception) {
-            System.out.println(exception.toString());
-        }
-        if (verifier.getSubject()==null){
-            throw new RuntimeException("Invalid Verifier");
-        }
-        return verifier.getSubject();
-    }
-
-    private Instant generateExpiringHour(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-    }
-}*/

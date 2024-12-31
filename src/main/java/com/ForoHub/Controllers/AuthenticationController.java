@@ -27,17 +27,6 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    /*@PostMapping
-    public ResponseEntity authenticateUser(@RequestBody @Valid AuthenticationDTO authenticationDTO){
-        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(authenticationDTO.mail()
-                ,authenticationDTO.password());
-        System.out.println("Debug: Authentication Controller1");
-        var authenticatedUser = authenticationManager.authenticate(authenticationToken);
-        var JWTtoken = tokenService.generateToken((User) authenticatedUser.getPrincipal());
-        System.out.println("Debug: Authentication Controller2");
-        return ResponseEntity.ok(new JWTTokenDTO(JWTtoken));
-    }*/
-
     @PostMapping
     public ResponseEntity authenticateUser(@RequestBody @Valid AuthenticationDTO authenticationDTO){
         try {
