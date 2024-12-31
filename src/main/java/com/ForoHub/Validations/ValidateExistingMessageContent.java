@@ -12,9 +12,14 @@ public class ValidateExistingMessageContent implements IValidatorForoHub {
     @Autowired
     private IEntranceRepository entranceRepository;
 
-    public void validateEntrance(EntranceDTO entranceDTO){
-        if (entranceRepository.existsEntranceByTitleAndMessage(entranceDTO.title(),entranceDTO.message())){
-            throw new ValidationException("An entrance with that name and message already exixts");
+    public void validateEntrance (EntranceDTO entranceDTO){
+        if (entranceRepository.existsEntranceByTitleAndMessage(entranceDTO.title(), entranceDTO.message())){
+            throw new ValidationException("An entrance with that title and message already exists");
+        }
+
+        if (entranceRepository.existsEntranceByMessage(entranceDTO.message())){
+            throw new ValidationException("An entrance with that message already exists");
         }
     }
+
 }

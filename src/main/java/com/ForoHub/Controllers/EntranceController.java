@@ -43,7 +43,7 @@ public class EntranceController {
     }
 
     @GetMapping
-    public Page<ListEntranceDTO> listEntrance(@PageableDefault(size = 6) Pageable pagination) {
+    public Page<ListEntranceDTO> listEntrance(@PageableDefault(size = 10) Pageable pagination) {
         return iEntranceRepository.findByPublishedTrue(pagination).map(ListEntranceDTO::new);
     }
 

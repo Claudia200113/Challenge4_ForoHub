@@ -17,4 +17,7 @@ public interface IEntranceRepository extends JpaRepository <Entrance, Long> {
     Optional<Entrance> findById(Long id);
 
     boolean existsEntranceByTitleAndMessage (String title, String Message);
+
+    boolean existsEntranceByMessage (String Message);
+
 }
