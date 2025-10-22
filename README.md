@@ -29,3 +29,12 @@ ForoHub is a forum application created using **Java** and **Maven**. It leverage
 - **Pagination**: List entrances with pagination support.
 - **Security**: API secured with bearer token authentication.
 - **Transactional Integrity**: Updates and deletions are transactional.
+
+## Insomnia 
+**List of Entrances**
+
+![List of Entrances](images/list_of_entrance.png)
+
+**Single Entrance**
+
+![Single Entrance](images/single_entrance.png)
